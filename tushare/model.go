@@ -1,0 +1,48 @@
+package tushare
+
+type BasicStock struct {
+	// 名称
+	Name string
+	// 所属行业
+	Industry string
+	// 地区
+	Area string
+	// 市盈率
+	Pe string
+	// 流通股本(亿)
+	Outstanding string
+	// 总股本(亿)
+	Totals string
+	// 总资产(万)
+	TotalAssets string
+	// 流动资产
+	LiquidAssets string
+	// 固定资产
+	FixedAssets string
+	// 公积金
+	Reserved string
+	// 每股公积金
+	ReservedPerShare string
+	// 每股收益
+	Esp string
+	// 每股净资
+	Bvps string
+	// 市净率
+	Pb string
+	// 上市日期
+	TimeToMarket string
+	// 未分利润
+	Undp string
+	// 每股未分配
+	Perundp string
+	// 收入同比(%)
+	Rev string
+	// 利润同比(%)
+	Profit string
+	// 毛利率(%)
+	Gpr string
+	// 净利润率(%)
+	Npr string
+	// 股东人数
+	Holders string
+}

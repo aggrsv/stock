@@ -1,8 +1,6 @@
 package tushare
 
 import (
-	"fmt"
-
 	python "github.com/sbinet/go-python"
 )
 
@@ -16,7 +14,7 @@ func init() {
 var PyStr = python.PyString_FromString
 var GoStr = python.PyString_AS_STRING
 
-func Tushare() error {
+func Tushare() (string, error) {
 	// import stock.py
 	InsertBeforeSysPath("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages")
 	stock := ImportModule("/Users/youmy/go/src/stock/tushare", "stock")
@@ -26,11 +24,9 @@ func Tushare() error {
 	python.PyTuple_SetItem(bArgs, 0, PyStr("sybmol"))
 
 	res := basics.Call(bArgs, python.Py_None)
-	fmt.Printf("[CALL] tushare('sybmol') = %s\n", GoStr(res))
-	fmt.Println(res.Type())
-	fmt.Println(res.Repr())
+	//fmt.Printf("[CALL] tushare('sybmol') = %s\n", GoStr(res))
 	//fmt.Println(res.Bytes())
-	return nil
+	return GoStr(res), nil
 }
 
 // InsertBeforeSysPath will add given dir to python import path
@@ -48,6 +44,3 @@ func ImportModule(dir, name string) *python.PyObject {
 	python.PyList_Insert(path, 0, PyStr(dir))        // path.insert(0, dir)
 	return python.PyImport_ImportModule(name)        // return __import__(name)
 }
-
-
-                                                                                             
