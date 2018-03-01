@@ -1,6 +1,9 @@
 package tushare
 
 import (
+	"errors"
+	"stock/etc"
+
 	python "github.com/sbinet/go-python"
 )
 
@@ -11,13 +14,16 @@ func init() {
 	}
 }
 
+var (
+	sitPkg = etc.String("py_path", "sitepkg")
+)
+
 var PyStr = python.PyString_FromString
 var GoStr = python.PyString_AS_STRING
 
 func GetProfit(year, season string) string {
-	InsertBeforeSysPath("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages")
-	stock := ImportModule("/Users/youmy/go/src/stock/tushare", "stock")
-
+	//InsertBeforeSysPath("")
+	stock := ImportModule("", "stock")
 	basics := stock.GetAttrString("profit")
 	//defer basics.Clear()
 
@@ -31,12 +37,15 @@ func GetProfit(year, season string) string {
 
 func Tushare() (string, error) {
 	// import stock.py
-	InsertBeforeSysPath("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages")
-	stock := ImportModule("/Users/youmy/go/src/stock/tushare", "stock")
-
+	InsertBeforeSysPath(sitPkg)
+	stock := ImportModule("tushare", "stock")
+	if stock == nil {
+		return "", errors.New("stock == nil")
+	}
 	basics := stock.GetAttrString("stock_basics")
-	defer basics.Clear()
-
+	if basics == nil {
+		return "", errors.New("basic == nil")
+	}
 	bArgs := python.PyTuple_New(1)
 	python.PyTuple_SetItem(bArgs, 0, PyStr("sybmol"))
 

@@ -8,43 +8,43 @@ type BasicStock struct {
 	// 地区
 	Area string
 	// 市盈率
-	Pe string
+	Pe float32
 	// 流通股本(亿)
-	Outstanding string
+	Outstanding float32
 	// 总股本(亿)
-	Totals string
+	Totals float32
 	// 总资产(万)
-	TotalAssets string
+	TotalAssets float32
 	// 流动资产
-	LiquidAssets string
+	LiquidAssets float32
 	// 固定资产
-	FixedAssets string
+	FixedAssets float32
 	// 公积金
-	Reserved string
+	Reserved float32
 	// 每股公积金
-	ReservedPerShare string
+	ReservedPerShare float32
 	// 每股收益
-	Esp string
+	Esp float32
 	// 每股净资
-	Bvps string
+	Bvps float32
 	// 市净率
-	Pb string
+	Pb float32
 	// 上市日期
-	TimeToMarket string
+	TimeToMarket float32
 	// 未分利润
-	Undp string
+	Undp float32
 	// 每股未分配
-	Perundp string
+	Perundp float32
 	// 收入同比(%)
-	Rev string
+	Rev float32
 	// 利润同比(%)
-	Profit string
+	Profit float32
 	// 毛利率(%)
-	Gpr string
+	Gpr float32
 	// 净利润率(%)
-	Npr string
+	Npr float32
 	// 股东人数
-	Holders string
+	Holders float32
 }
 
 // 业绩报告
