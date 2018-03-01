@@ -10,7 +10,7 @@ import (
 
 	"stock/comm/http/mux"
 
-	"shendu.com/etc"
+	"stock/etc"
 )
 
 var (

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"shendu.com/etc/conf"
+	"stock/etc/conf"
 )
 
 var (

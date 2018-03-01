@@ -1,7 +1,6 @@
 package main
 
 import (
-	nh "net/http"
 	"stock/comm/http"
 	h "stock/handler"
 )
@@ -22,6 +21,6 @@ func init() {
 }
 
 func main() {
-	//http.ListenAndServeEtc("stock", mux)
-	nh.ListenAndServe(":8080", mux)
+	http.ListenAndServeEtc("stock", mux)
+	//nh.ListenAndServe(":8080", mux)
 }

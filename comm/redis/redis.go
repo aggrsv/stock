@@ -4,8 +4,9 @@ import (
 	"log"
 	"time"
 
+	"stock/etc"
+
 	"github.com/garyburd/redigo/redis"
-	"shendu.com/etc"
 )
 
 type Client struct {
