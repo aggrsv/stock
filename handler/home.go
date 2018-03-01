@@ -1,33 +1,35 @@
 package handler
 
 import (
+	"encoding/json"
 	"fmt"
-	"html/template"
-	"log"
-	"net/http"
-	"os"
+	"stock/comm/http"
+	"stock/tushare"
+
+	_ "stock/models/http"
 )
 
 //
-func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	//w.Header().Set("content-type", "application/json")
-	fmt.Println("start parse file")
-	if err := loadHtml("golang23"); err != nil {
-		log.Println("loadHTML error:", err)
+func HomeHandler(ctx *http.Context) error {
+	res, err := tushare.Tushare()
+	if err != nil {
+		fmt.Println("tushare error", err)
 	}
-	// res, err := tushare.Tushare()
-	// if err != nil {
-	// 	log.Error("error ")
-	// }
+	basicStock := make([]*tushare.BasicStock, 0)
+	if err := json.Unmarshal([]byte(res), &basicStock); err != nil {
+		return err
+	}
+
+	ctx.Reply(basicStock)
+	return nil
 }
 
-func loadHtml(data string) error {
-	parseHTML, err := template.ParseFiles("view/home/home.html")
-	if err != nil {
+func ProfitHandler(ctx *http.Context) error {
+	res := tushare.GetProfit("2017", "1")
+	profit := make([]*tushare.Profit, 0)
+	if err := json.Unmarshal([]byte(res), &profit); err != nil {
 		return err
 	}
-	if err := parseHTML.Execute(os.Stdout, data); err != nil {
-		return err
-	}
+	ctx.Reply(profit)
 	return nil
 }

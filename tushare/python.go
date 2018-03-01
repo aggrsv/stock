@@ -14,18 +14,34 @@ func init() {
 var PyStr = python.PyString_FromString
 var GoStr = python.PyString_AS_STRING
 
+func GetProfit(year, season string) string {
+	InsertBeforeSysPath("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages")
+	stock := ImportModule("/Users/youmy/go/src/stock/tushare", "stock")
+
+	basics := stock.GetAttrString("profit")
+	//defer basics.Clear()
+
+	bArgs := python.PyTuple_New(1)
+	python.PyTuple_SetItem(bArgs, 0, PyStr(year))
+	python.PyTuple_SetItem(bArgs, 1, PyStr(season))
+	res := basics.Call(bArgs, python.Py_None)
+
+	return GoStr(res)
+}
+
 func Tushare() (string, error) {
 	// import stock.py
 	InsertBeforeSysPath("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages")
 	stock := ImportModule("/Users/youmy/go/src/stock/tushare", "stock")
 
 	basics := stock.GetAttrString("stock_basics")
+	defer basics.Clear()
+
 	bArgs := python.PyTuple_New(1)
 	python.PyTuple_SetItem(bArgs, 0, PyStr("sybmol"))
 
 	res := basics.Call(bArgs, python.Py_None)
-	//fmt.Printf("[CALL] tushare('sybmol') = %s\n", GoStr(res))
-	//fmt.Println(res.Bytes())
+
 	return GoStr(res), nil
 }
 

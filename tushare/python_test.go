@@ -1,9 +1,14 @@
 package tushare
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestTushare(t *testing.T) {
-	if err := Tushare(); err != nil {
+	res, err := Tushare()
+	if err != nil {
 		t.Fatal(err)
 	}
+	fmt.Println("======", res)
 }

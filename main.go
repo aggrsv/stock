@@ -1,15 +1,27 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"net/http"
+	nh "net/http"
+	"stock/comm/http"
+	h "stock/handler"
 )
 
+const (
+	prefix = "/stock/v1"
+)
+
+var (
+	mux = http.Route(prefix)
+)
+
+func init() {
+	mux.Group("", func(mux *http.Mux) {
+		mux.Get("/basicstock", h.HomeHandler)
+		mux.Get("/profit", h.ProfitHandler)
+	})
+}
+
 func main() {
-	//tushare.Tushare()
-	fmt.Println("listen on server => 8080")
-	if err := http.ListenAndServe(":8080", router); err != nil {
-		log.Print("start server error :", err)
-	}
+	//http.ListenAndServeEtc("stock", mux)
+	nh.ListenAndServe(":8080", mux)
 }
