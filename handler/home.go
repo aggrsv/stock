@@ -22,13 +22,3 @@ func HomeHandler(ctx *http.Context) error {
 	ctx.Reply(basicStock)
 	return nil
 }
-
-func ProfitHandler(ctx *http.Context) error {
-	res := tushare.GetProfit("2017", "1")
-	profit := make([]*tushare.Profit, 0)
-	if err := json.Unmarshal([]byte(res), &profit); err != nil {
-		return err
-	}
-	ctx.Reply(profit)
-	return nil
-}

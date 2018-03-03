@@ -19,20 +19,27 @@ var (
 )
 
 var PyStr = python.PyString_FromString
+var PyInt = python.PyInt_FromString
 var GoStr = python.PyString_AS_STRING
 
-func GetProfit(year, season string) string {
-	//InsertBeforeSysPath("")
-	stock := ImportModule("", "stock")
-	basics := stock.GetAttrString("profit")
-	//defer basics.Clear()
+func GetProfit(year, season string) (string, error) {
+	InsertBeforeSysPath(sitPkg)
+	stock := ImportModule("tushare", "stock")
+	if stock == nil {
+		return "", errors.New("stock == nil")
+	}
+	profit := stock.GetAttrString("profit")
+	if profit == nil {
+		return "", errors.New("profit == nil")
+	}
 
-	bArgs := python.PyTuple_New(1)
-	python.PyTuple_SetItem(bArgs, 0, PyStr(year))
-	python.PyTuple_SetItem(bArgs, 1, PyStr(season))
-	res := basics.Call(bArgs, python.Py_None)
+	bArgs := python.PyTuple_New(2)
+	python.PyTuple_SetItem(bArgs, 0, PyInt(year, 0, 10))
+	python.PyTuple_SetItem(bArgs, 1, PyInt(season, 0, 10))
 
-	return GoStr(res)
+	res := profit.Call(bArgs, python.Py_None)
+
+	return GoStr(res), nil
 }
 
 func Tushare() (string, error) {

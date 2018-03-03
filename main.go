@@ -15,12 +15,14 @@ var (
 
 func init() {
 	mux.Group("", func(mux *http.Mux) {
+		mux.Get("/listbyname", h.CodeNameHandler)
 		mux.Get("/basicstock", h.HomeHandler)
 		mux.Get("/profit", h.ProfitHandler)
+		mux.Get("/growth", h.GrowingCompareHandler)
+		mux.Get("/integrate", h.IntegrateHandler)
 	})
 }
 
 func main() {
 	http.ListenAndServeEtc("stock", mux)
-	//nh.ListenAndServe(":8080", mux)
 }
