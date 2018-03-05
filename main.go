@@ -20,6 +20,8 @@ func init() {
 		mux.Get("/profit", h.ProfitHandler)
 		mux.Get("/growth", h.GrowingCompareHandler)
 		mux.Get("/integrate", h.IntegrateHandler)
+		mux.Get("/prices", h.RealTimePriceHandler)
+		mux.Get("/	", h.RealTimePrice2Handler)
 	})
 }
 
