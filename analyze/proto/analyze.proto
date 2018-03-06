@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package proto;
+
+service AnalyzeService{
+	rpc CodeNameList(CodeNameListReq) returns (CodeNameListResp);
+	rpc GrowingCompare(GrowingCompareReq) returns (GrowingCompareResp);
+	rpc ProfitCompare(ProfitCompareReq) returns (ProfitCompareResp);
+}
+
+message CodeNameListReq{
+	string sybmol = 1;
+}
+
+message CodeNameListResp{
+	repeated CodeName codenames = 1;
+}
+
+message CodeName{
+	string code = 1;
+	string name = 2;
+}
+
+
+message GrowingCompareReq {
+	string code = 1;
+}
+
+message GrowingCompareResp{
+	repeated Growth growths = 1;
+} 
+
+// 成长能力
+message Growth  {
+	 string  code =1; //代码
+	 string name  =2; //名称
+	 int32  year = 9;  //年份
+	 float mbrg = 3;//主营业务收入增长率(%)
+	 float nprg = 4; //净利润增长率(%)
+	 float nav  = 5; //净资产增长率
+	 float targ = 6; //总资产增长率
+	 float epsg = 7; //每股收益增长率
+	 float seg  = 8; //股东权益增长率
+}
+
+
+message ProfitCompareReq {
+	string code = 1;
+}
+
+message ProfitCompareResp{
+	repeated Profit profits = 1;
+} 
+
+message Profit{
+string 	code = 1;// 代码
+string name = 2;// 名称
+int32 year  = 3;
+float roe = 4;// 净资产收益率(%)
+float  net_profit_ratio =5; // 净利率(%)
+float gross_profit_rate =6; // 毛利率(%)
+float net_profits =7; // 净利润(万元)
+float esp =8; // 每股收益
+float business_income =9;// 营业收入(百万元)
+float bips = 10;// 每股主营业务收入(元)
+}
